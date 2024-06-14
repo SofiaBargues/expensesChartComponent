@@ -29,12 +29,13 @@ function App() {
           <div className="flex flex-row m-auto gap-2 items-end ">
             {data.map((daySpending, index) => (
               <div className=" flex flex-col justify-between ">
-                {daySpending.day === daySelected ? (
+                {daySpending.day === daySelected ||
+                dayHovered === daySpending.day ? (
                   <div className="bg-[#392313] w-14 text-center text-white text-xs p-1 mb-2 rounded rounded-xs ">
                     $ {daySpending.amount}
                   </div>
                 ) : null}
-                <div className="flex justify-center">
+                <div className="flex flex-col justify-center">
                   <button
                     onClick={() => setDaySelected(daySpending.day)}
                     onMouseEnter={() => setDayHovered(daySpending.day)}
@@ -46,9 +47,6 @@ function App() {
                     } `}
                     style={{ height: daySpending.amount * 3.5 }}
                   ></button>
-                  <div className="">
-                    {dayHovered === daySpending ? "Inactive" : "active"}
-                  </div>
                 </div>
                 <div className="flex justify-center">{daySpending.day}</div>
               </div>
