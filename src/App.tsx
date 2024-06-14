@@ -11,6 +11,7 @@ function App() {
   const handleMouseLeave = () => {
     setDayHovered("");
   };
+  console.log(dayHovered);
   return (
     <div className="bg-[#f7e9dc] h-screen flex flex-col justify-center">
       <div className="m-auto flex gap-[24px] flex-col">
@@ -45,7 +46,9 @@ function App() {
                     } `}
                     style={{ height: daySpending.amount * 3.5 }}
                   ></button>
-                  <div className="">{!dayHovered ? "Inactive" : "active"}</div>
+                  <div className="">
+                    {dayHovered === daySpending ? "Inactive" : "active"}
+                  </div>
                 </div>
                 <div className="flex justify-center">{daySpending.day}</div>
               </div>
