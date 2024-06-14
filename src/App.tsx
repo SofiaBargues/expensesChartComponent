@@ -4,30 +4,13 @@ import logo from "./assets/logo.svg";
 import { useState } from "react";
 // import viteLogo from "/vite.svg";
 
-function HoverComponent() {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-  return (
-    <div
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className=""
-    >
-      {!isHovered ? "Inactive" : "active"}
-    </div>
-  );
-}
-
 function App() {
   const [daySelected, setDaySelected] = useState("");
+  const [dayHovered, setDayHovered] = useState("");
 
+  const handleMouseLeave = () => {
+    setDayHovered("");
+  };
   return (
     <div className="bg-[#f7e9dc] h-screen flex flex-col justify-center">
       <div className="m-auto flex gap-[24px] flex-col">
@@ -43,8 +26,6 @@ function App() {
             Spending - Last 7 days
           </div>
           <div className="flex flex-row m-auto gap-2 items-end ">
-            {/* map loquito  */}
-            <HoverComponent />
             {data.map((daySpending, index) => (
               <div className=" flex flex-col justify-between ">
                 {daySpending.day === daySelected ? (
@@ -55,6 +36,8 @@ function App() {
                 <div className="flex justify-center">
                   <button
                     onClick={() => setDaySelected(daySpending.day)}
+                    onMouseEnter={() => setDayHovered(daySpending.day)}
+                    onMouseLeave={handleMouseLeave}
                     className={`w-10 rounded-md  ${
                       daySelected === daySpending.day
                         ? "hover:bg-[#9cc7cc] bg-[#76979b]"
@@ -62,6 +45,7 @@ function App() {
                     } `}
                     style={{ height: daySpending.amount * 3.5 }}
                   ></button>
+                  <div className="">{!dayHovered ? "Inactive" : "active"}</div>
                 </div>
                 <div className="flex justify-center">{daySpending.day}</div>
               </div>
