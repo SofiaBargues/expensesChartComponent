@@ -7,9 +7,6 @@ import { useState } from "react";
 function App() {
   const [day, setDay] = useState("");
 
-  const selectedDay = (selectedDay) => {
-    setDay(selectedDay);
-  };
   console.log(day);
   return (
     <div className="bg-[#f7e9dc] h-screen flex flex-col justify-center">
@@ -25,20 +22,27 @@ function App() {
           <div className="text-[#321b10] text-4xl font-bold">
             Spending - Last 7 days
           </div>
-          <div className="flex flex-row m-auto gap-7 items-end">
+          <div className="flex flex-row m-auto gap-2 items-end ">
             {/* map loquito  */}
-            {data.map((currentDay, index) => (
-              <div>
-                <button
-                  onClick={() => selectedDay(currentDay.day)}
-                  className={`w-10 ${
-                    day === currentDay.day
-                      ? "bg-[#9cc7cc] hover:bg-[#76979b]"
-                      : "bg-[#ec755d] hover:bg-[#ff9b87]"
-                  } `}
-                  style={{ height: currentDay.amount * 4 }}
-                ></button>
-                <div className="flex justify-center">{currentDay.day}</div>
+            {data.map((daySpending, index) => (
+              <div className=" flex flex-col justify-between ">
+                {daySpending.day === day ? (
+                  <div className="bg-[#392313] w-14 text-center text-white text-xs p-1 mb-2 rounded rounded-xs ">
+                    $ {daySpending.amount}
+                  </div>
+                ) : null}
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => setDay(daySpending.day)}
+                    className={`w-10 rounded-md  ${
+                      day === daySpending.day
+                        ? "hover:bg-[#9cc7cc] bg-[#76979b]"
+                        : "bg-[#ec755d] hover:bg-[#ff9b87]"
+                    } `}
+                    style={{ height: daySpending.amount * 3.5 }}
+                  ></button>
+                </div>
+                <div className="flex justify-center">{daySpending.day}</div>
               </div>
             ))}
           </div>
