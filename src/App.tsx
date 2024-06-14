@@ -4,10 +4,30 @@ import logo from "./assets/logo.svg";
 import { useState } from "react";
 // import viteLogo from "/vite.svg";
 
-function App() {
+function HoverComponent() {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+  return (
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className=""
+    >
+      {!isHovered ? se : "active"}
+    </div>
+  );
+}
+
+function App(is) {
   const [daySelected, setDaySelected] = useState("");
 
-  console.log(daySelected);
   return (
     <div className="bg-[#f7e9dc] h-screen flex flex-col justify-center">
       <div className="m-auto flex gap-[24px] flex-col">
@@ -24,6 +44,7 @@ function App() {
           </div>
           <div className="flex flex-row m-auto gap-2 items-end ">
             {/* map loquito  */}
+            <HoverComponent />
             {data.map((daySpending, index) => (
               <div className=" flex flex-col justify-between ">
                 {daySpending.day === daySelected ? (
