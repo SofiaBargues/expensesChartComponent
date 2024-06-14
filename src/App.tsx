@@ -7,13 +7,14 @@ import { useState } from "react";
 function App() {
   const [daySelected, setDaySelected] = useState("");
   const [dayHovered, setDayHovered] = useState("");
-  const [maxAmount, setMaxAmount] = useState(0);
 
   const handleMouseLeave = () => {
     setDayHovered("");
   };
 
-  console.log(dayHovered);
+  const amounts = data.map((daySpending) => daySpending.amount);
+  const maxAmount = amounts.reduce((a, b) => Math.max(a, b), -Infinity);
+  console.log(maxAmount);
 
   return (
     <div className="bg-[#f7e9dc] h-screen flex flex-col justify-center">
@@ -29,16 +30,16 @@ function App() {
           <div className="text-[#321b10] text-4xl font-bold">
             Spending - Last 7 days
           </div>
-          <div className="flex flex-row gap-2 items-end h-[250px] w-full justify-between ">
-            {data.map((daySpending, index) => (
+          <div className="grid grid-cols-7 gap-2 items-end h-[250px] w-full  ">
+            {data.map((daySpending) => (
               <div className=" flex flex-col justify-end h-full ">
-                {daySpending.day === daySelected ||
-                dayHovered === daySpending.day ? (
-                  <div className="bg-[#392313] w-14 text-center text-white text-xs p-1 mb-2 rounded rounded-xs ">
-                    $ {daySpending.amount}
-                  </div>
-                ) : null}
-                <div className="flex flex-col justify-end  h-[80%] items-center">
+                <div className="flex flex-col justify-end  h-full items-center ">
+                  {daySpending.day === daySelected ||
+                  dayHovered === daySpending.day ? (
+                    <div className="bg-[#392313] w-14 text-center text-white text-xs p-1 mb-2 rounded rounded-xs ">
+                      $ {daySpending.amount}
+                    </div>
+                  ) : null}
                   <button
                     onClick={() => setDaySelected(daySpending.day)}
                     onMouseEnter={() => setDayHovered(daySpending.day)}
@@ -48,7 +49,9 @@ function App() {
                         ? "hover:bg-[#9cc7cc] bg-[#76979b]"
                         : "bg-[#ec755d] hover:bg-[#ff9b87]"
                     } `}
-                    style={{ height: `${100 * (daySpending.amount / 52.36)}%` }}
+                    style={{
+                      height: `${80 * (daySpending.amount / maxAmount)}%`,
+                    }}
                   ></button>
                 </div>
                 <div className="flex justify-center">{daySpending.day}</div>
