@@ -5,9 +5,9 @@ import { useState } from "react";
 // import viteLogo from "/vite.svg";
 
 function App() {
-  const [day, setDay] = useState("");
+  const [daySelected, setDaySelected] = useState("");
 
-  console.log(day);
+  console.log(daySelected);
   return (
     <div className="bg-[#f7e9dc] h-screen flex flex-col justify-center">
       <div className="m-auto flex gap-[24px] flex-col">
@@ -26,16 +26,16 @@ function App() {
             {/* map loquito  */}
             {data.map((daySpending, index) => (
               <div className=" flex flex-col justify-between ">
-                {daySpending.day === day ? (
+                {daySpending.day === daySelected ? (
                   <div className="bg-[#392313] w-14 text-center text-white text-xs p-1 mb-2 rounded rounded-xs ">
                     $ {daySpending.amount}
                   </div>
                 ) : null}
                 <div className="flex justify-center">
                   <button
-                    onClick={() => setDay(daySpending.day)}
+                    onClick={() => setDaySelected(daySpending.day)}
                     className={`w-10 rounded-md  ${
-                      day === daySpending.day
+                      daySelected === daySpending.day
                         ? "hover:bg-[#9cc7cc] bg-[#76979b]"
                         : "bg-[#ec755d] hover:bg-[#ff9b87]"
                     } `}
