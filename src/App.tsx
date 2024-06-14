@@ -20,12 +20,12 @@ function HoverComponent() {
       onMouseLeave={handleMouseLeave}
       className=""
     >
-      {!isHovered ? se : "active"}
+      {!isHovered ? "Inactive" : "active"}
     </div>
   );
 }
 
-function App(is) {
+function App() {
   const [daySelected, setDaySelected] = useState("");
 
   return (
